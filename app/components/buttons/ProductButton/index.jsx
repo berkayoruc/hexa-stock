@@ -1,13 +1,12 @@
-"use client";
+import Link from "next/link";
 
-export default function ProductButton({ children }) {
+export default function ProductButton({ product }) {
   return (
-    <button
-      onClick={() => console.log("berkay")}
-      className="flex flex-col items-center justify-center"
-    >
-      <div className="h-9 w-9 rounded-md bg-amber-200"></div>
-      <span>Item 1</span>
-    </button>
+    <Link href={`/product?id=${product?.id}`}>
+      <button className="flex flex-col items-center justify-center">
+        <div className="h-9 w-9 rounded-md bg-amber-200"></div>
+        <span>{product?.name}</span>
+      </button>
+    </Link>
   );
 }

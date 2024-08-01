@@ -22,14 +22,7 @@ export async function login(formData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
-}
-
-export async function logout() {
-  const supabase = createClient();
-  await supabase.auth.signOut();
-  revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/products");
 }
 
 // export async function signup(formData) {

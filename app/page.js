@@ -9,7 +9,7 @@ export default function Home() {
     const supabase = createClient();
     await supabase.auth.signOut();
     revalidatePath("/", "layout");
-    redirect("/");
+    redirect("/login");
   };
 
   return (
