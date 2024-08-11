@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { logout } from "./login/actions";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -11,6 +10,8 @@ export default function Home() {
     revalidatePath("/", "layout");
     redirect("/login");
   };
+
+  redirect("/products");
 
   return (
     <main>

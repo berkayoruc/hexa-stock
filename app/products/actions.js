@@ -14,7 +14,15 @@ export async function logout() {
 
 export async function getProductsSSR() {
   const supabase = createClient();
-  const { data, error } = await supabase.from("product").select();
+  const { data, error } = await supabase.from("product").select(`
+    id,
+    name,
+    purchase_price,
+    count,
+    category (
+      name
+    )
+    `);
   if (data.length) {
     return data;
   } else {
