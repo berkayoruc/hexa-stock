@@ -8,10 +8,12 @@ import Link from "next/link";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getProducts = async () => {
     const ssrProducts = await getProductsSSR();
     setProducts(ssrProducts);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -31,10 +33,10 @@ const ProductsPage = () => {
         </Link>
       </header>
       <main className="w-full bg-slate-300 h-screen-4rem overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 p-2 gap-2">
+        {loading && <p>{"Yükleniyor..."}</p>}
         {products.map((product) => (
           <ProductButton key={product.id} product={product} />
         ))}
-        {!products.length && <h1>{"No data"}</h1>}
       </main>
     </div>
   );
