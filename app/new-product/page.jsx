@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getCategoriesSSR } from "./actions";
+import { createProduct, getCategoriesSSR } from "./actions";
 
 const NewProductPage = () => {
   const [categories, setCategories] = useState([]);
@@ -40,6 +40,7 @@ const NewProductPage = () => {
             <input
               type="text"
               id="name"
+              name="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ürün adını girin"
               required
@@ -55,6 +56,7 @@ const NewProductPage = () => {
             <input
               type="number"
               id="purchase_price"
+              name="purchase_price"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -69,6 +71,7 @@ const NewProductPage = () => {
             <input
               type="number"
               id="count"
+              name="count"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -82,14 +85,18 @@ const NewProductPage = () => {
             </label>
             <select
               id="categories"
+              name="categories"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               {categories?.map((category) => (
-                <option key={category.id}>{category.name}</option>
+                <option value={category.id} key={category.id}>
+                  {category.name}
+                </option>
               ))}
             </select>
           </div>
           <button
+            formAction={createProduct}
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
