@@ -27,8 +27,6 @@ const NewProductPage = () => {
         </h1>
       </header>
       <main className="w-full bg-slate-300 h-screen-4rem overflow-y-scroll">
-        {/* <div className="flex flex-col items-center justify-center"></div> */}
-
         <form className="max-w-sm mx-auto">
           <div className="mb-5">
             <label

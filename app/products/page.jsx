@@ -31,7 +31,11 @@ const ProductsPage = () => {
           >
             Menü
           </button>
-          <input className="w-1/2 h-12 bg-slate-300 rounded-lg pl-2" type="text" placeholder="Ürün ara" />
+          <input
+            className="w-1/2 h-12 bg-slate-300 rounded-lg pl-2"
+            type="text"
+            placeholder="Ürün ara"
+          />
           <Link href="/new-product">
             <button className="h-12 w-12 p-1 rounded-lg bg-white text-sm font-medium flex items-center justify-center text-center border border-gray-400 text-gray-900">
               Ekle
@@ -54,12 +58,11 @@ const ProductsPage = () => {
             >
               X
             </button>
-            <button
-              onClick={() => setMenuModal(false)}
-              className="mt-12 mx-4 rounded py-2 border border-gray-400 bg-white "
-            >
-              Kategori ekle
-            </button>
+            <Link href={`/new-category`}>
+              <button className="mt-12 mx-4 rounded py-2 border border-gray-400 bg-white ">
+                Kategori ekle
+              </button>
+            </Link>
             <button
               onClick={() => setMenuModal(false)}
               className="mx-4 rounded py-2 border border-gray-400 bg-white "
