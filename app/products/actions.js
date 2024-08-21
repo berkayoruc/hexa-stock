@@ -14,7 +14,10 @@ export async function logout() {
 
 export async function getProductsSSR() {
   const supabase = createClient();
-  const { data, error } = await supabase.from("product").select(`
+  const { data, error } = await supabase
+    .from("product")
+    .select(
+      `
     id,
     name,
     purchase_price,
@@ -22,7 +25,9 @@ export async function getProductsSSR() {
     category (
       name
     )
-    `);
+    `
+    )
+    .order("name", { ascending: true });
   if (data.length) {
     return data;
   } else {

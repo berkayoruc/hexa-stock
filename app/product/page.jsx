@@ -21,9 +21,9 @@ const ProductPage = ({}) => {
   return (
     <div className="flex flex-col h-screen">
       <header className="w-full bg-slate-400 h-16 flex justify-between items-center px-4">
-        <button className="h-12 px-2 rounded-lg bg-cyan-300">
-          <Link href="/products">Ürünler</Link>
-        </button>
+        <Link href="/products">
+          <button className="h-12 px-2 rounded-lg bg-cyan-300">Geri dön</button>
+        </Link>
       </header>
       <main className="w-full bg-slate-300 h-screen-4rem overflow-y-scroll">
         <div className="flex flex-col items-center justify-center">

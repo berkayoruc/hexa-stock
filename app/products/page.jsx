@@ -7,13 +7,35 @@ import { getProductsSSR, logout } from "./actions";
 import Link from "next/link";
 
 const ProductsPage = () => {
+  const [ssrProducts, setSsrProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuModal, setMenuModal] = useState(false);
+  const [searchItem, setSearchItem] = useState("");
+
+  const handleInputChange = (e) => {
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm);
+    if (!searchTerm) {
+      setProducts(ssrProducts);
+      return;
+    }
+    const filteredItems = ssrProducts.filter(
+      (product) =>
+        product.name
+          .toLocaleLowerCase()
+          .includes(searchTerm.toLocaleLowerCase()) ||
+        product.category.name
+          .toLocaleLowerCase()
+          .includes(searchTerm.toLocaleLowerCase())
+    );
+    setProducts(filteredItems);
+  };
 
   const getProducts = async () => {
     const ssrProducts = await getProductsSSR();
     setProducts(ssrProducts);
+    setSsrProducts(ssrProducts);
     setLoading(false);
   };
 
@@ -35,6 +57,8 @@ const ProductsPage = () => {
             className="w-1/2 h-12 bg-slate-300 rounded-lg pl-2"
             type="text"
             placeholder="Ürün ara"
+            onChange={handleInputChange}
+            value={searchItem}
           />
           <Link href="/new-product">
             <button className="h-12 w-12 p-1 rounded-lg bg-white text-sm font-medium flex items-center justify-center text-center border border-gray-400 text-gray-900">

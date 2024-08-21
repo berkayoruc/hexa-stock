@@ -19,9 +19,11 @@ const NewProductPage = () => {
   return (
     <div className="flex flex-col h-screen">
       <header className="w-full bg-slate-400 h-16 flex items-center px-4">
-        <button className="h-12 py-1 px-2 rounded-lg bg-cyan-300">
-          <Link href="/products">Ürünler</Link>
-        </button>
+        <Link href="/products">
+          <button className="h-12 py-1 px-2 rounded-lg bg-cyan-300">
+            Geri dön
+          </button>
+        </Link>
         <h1 className="absolute left-24 right-24 text-center font-medium">
           Ürün Ekle
         </h1>
