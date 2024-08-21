@@ -3,7 +3,7 @@ import { createCategory } from "./actions";
 
 const NewCategoryPage = () => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-svh">
       <header className="w-full bg-slate-400 h-16 flex items-center px-4">
         <Link href="/products">
           <button className="h-12 py-1 px-2 rounded-lg bg-cyan-300">
@@ -14,7 +14,7 @@ const NewCategoryPage = () => {
           Kategori Ekle
         </h1>
       </header>
-      <main className="w-full bg-slate-300 h-screen-4rem overflow-y-scroll">
+      <main className="w-full bg-slate-300 h-svh-4rem overflow-y-scroll">
         <form className="max-w-sm mx-auto">
           <div className="mb-5">
             <label

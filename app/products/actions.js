@@ -35,3 +35,17 @@ export async function getProductsSSR() {
     return [];
   }
 }
+
+export async function sellProductSSR(product) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("product")
+    .update({
+      count: product.count,
+    })
+    .eq("id", product.id);
+  if (error) {
+    console.error(error);
+    return { error };
+  }
+}

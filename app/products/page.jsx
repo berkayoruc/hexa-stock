@@ -5,13 +5,25 @@ import ProductButton from "../components/buttons/ProductButton";
 // import { logout } from "./actions";
 import { getProductsSSR, logout } from "./actions";
 import Link from "next/link";
+import MenuModal from "./modals/MenuModal";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [menuModal, setMenuModal] = useState(false);
+  const [menuModal, setMenuModal] = useState(null);
   const [searchItem, setSearchItem] = useState("");
+  const [inStockChecked, setInStockChecked] = useState(false);
+
+  const handleStockChange = (e) => {
+    setInStockChecked(e.target.checked);
+    if (e.target.checked) {
+      const filteredItems = products.filter((product) => product.count > 0);
+      setProducts(filteredItems);
+    } else {
+      setProducts(ssrProducts);
+    }
+  };
 
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
@@ -45,10 +57,14 @@ const ProductsPage = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-svh">
         <header className="w-full bg-slate-400 h-16 flex justify-between items-center px-4">
           <button
-            onClick={() => setMenuModal(true)}
+            onClick={() =>
+              setMenuModal(
+                <MenuModal setMenuModal={setMenuModal} logout={logout} />
+              )
+            }
             className="h-12 w-12 p-1 rounded-lg bg-white text-sm font-medium flex items-center justify-center text-center border border-gray-400 text-gray-900"
           >
             Menü
@@ -66,44 +82,33 @@ const ProductsPage = () => {
             </button>
           </Link>
         </header>
-        <main className="w-full bg-slate-300 h-screen-4rem overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 p-2 gap-2">
+        <div className="w-full h-12 flex items-center justify-start px-4 bg-slate-200">
+          <label className="flex items-center justify-start gap-1 text-sm font-medium">
+            {"Stoktakiler"}
+            <input
+              type="checkbox"
+              className="w-4 h-4"
+              checked={inStockChecked}
+              onChange={handleStockChange}
+            />
+          </label>
+        </div>
+        <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 p-2 gap-2">
           {loading && <p>{"Yükleniyor..."}</p>}
           {products.map((product) => (
-            <ProductButton key={product.id} product={product} />
+            <ProductButton
+              key={product.id}
+              product={product}
+              setMenuModal={setMenuModal}
+              sellOnClose={() => {
+                getProducts();
+                setMenuModal(null);
+              }}
+            />
           ))}
         </main>
       </div>
-      {menuModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white w-3/4 h-1/2 rounded-lg relative flex flex-col gap-3">
-            <button
-              onClick={() => setMenuModal(false)}
-              className="absolute top-2 right-2"
-            >
-              X
-            </button>
-            <Link href={`/new-category`}>
-              <button className="mt-12 mx-4 rounded py-2 border border-gray-400 bg-white ">
-                Kategori ekle
-              </button>
-            </Link>
-            <button
-              onClick={() => setMenuModal(false)}
-              className="mx-4 rounded py-2 border border-gray-400 bg-white "
-            >
-              Kategoriler
-            </button>
-            <form action={logout}>
-              <button
-                style={{ width: "calc(100% - 2rem)" }}
-                className="mx-4 rounded py-2 border border-gray-400 bg-white "
-              >
-                Çıkış
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      {menuModal && menuModal}
     </>
   );
 };
