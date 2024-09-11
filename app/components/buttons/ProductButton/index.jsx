@@ -2,6 +2,7 @@
 
 import SellProductModal from "@/app/products/modals/SellProductModal";
 import Link from "next/link";
+import { Button } from "primereact/button";
 
 export default function ProductButton({ product, setMenuModal, sellOnClose }) {
   return (
@@ -44,16 +45,19 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
       </div>
       <div className="p-6 pt-0 flex flex-col gap-2">
         <Link href={`/product?id=${product?.id}`}>
-          <button className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 bg-white border border-blue-300">
-            Ürüne Git
-          </button>
+          <Button
+            className="w-full rounded-lg"
+            label="Ürüne Git"
+            severity="info"
+            outlined
+          />
         </Link>
         <Link href={`/add-product?id=${product?.id}`}>
-          <button className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 bg-blue-300">
-            Stok Ekle
-          </button>
+          <Button className="w-full rounded-lg" label="Stok Ekle" />
         </Link>
-        <button
+        <Button
+          className="w-full rounded-lg"
+          disabled={!product?.count}
           onClick={(e) => {
             e.preventDefault();
             if (product?.count === 0) return;
@@ -61,11 +65,9 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
               <SellProductModal product={product} onClose={sellOnClose} />
             );
           }}
-          disabled={!product?.count}
-          className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 bg-green-300"
-        >
-          Satış Yap
-        </button>
+          label="Satış Yap"
+          severity="success"
+        />
       </div>
     </div>
   );

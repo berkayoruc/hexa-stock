@@ -1,47 +1,39 @@
 import { login } from "./actions";
+import { Button } from "primereact/button";
+// import { FloatLabel } from "primereact/floatlabel";
+import { Password } from "primereact/password";
+import { InputText } from "primereact/inputtext";
 
 export default function LoginPage() {
   return (
     <div className="p-4">
-      <form className="max-w-sm mx-auto">
-        <div className="mb-5">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            E-posta
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="name@hexaapps.com"
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Şifre
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <button
-          formAction={login}
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Giriş yap
-        </button>
+      <form className="max-w-sm mx-auto flex flex-col gap-4">
+        {/* <FloatLabel> */}
+        <InputText
+          type="email"
+          id="email"
+          name="email"
+          required
+          className="w-full"
+          placeholder="E-posta"
+        />
+        {/* <label htmlFor="email">E-posta</label> */}
+        {/* </FloatLabel> */}
+        {/* <FloatLabel> */}
+        <Password
+          type="password"
+          id="password"
+          name="password"
+          required
+          feedback={false}
+          toggleMask
+          inputClassName="w-full"
+          pt={{ iconField: { root: { className: "w-full" } } }}
+          placeholder="Şifre"
+        />
+        {/* <label htmlFor="password">Şifre</label> */}
+        {/* </FloatLabel> */}
+        <Button label="Giriş yap" type="submit" formAction={login}></Button>
       </form>
     </div>
   );
