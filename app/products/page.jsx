@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import ProductButton from "../components/buttons/ProductButton";
-// import { logout } from "./actions";
 import { getProductsSSR, logout } from "./actions";
 import Link from "next/link";
 import MenuModal from "./modals/MenuModal";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
@@ -73,22 +73,12 @@ const ProductsPage = () => {
             tooltip="Menü"
             tooltipOptions={{ position: "bottom" }}
           />
-          {/* <button
-            onClick={() =>
-              setMenuModal(
-                <MenuModal setMenuModal={setMenuModal} logout={logout} />
-              )
-            }
-            className="h-12 w-12 p-1 rounded-lg bg-white text-sm font-medium flex items-center justify-center text-center border border-gray-400 text-gray-900"
-          >
-            Menü
-          </button> */}
-          <input
-            className="w-1/2 h-12 bg-slate-300 rounded-lg pl-2"
+          <InputText
             type="text"
+            className="w-1/2 rounded-lg pl-2"
             placeholder="Ürün ara"
-            onChange={handleInputChange}
             value={searchItem}
+            onChange={handleInputChange}
           />
           <Link href="/new-product">
             <Button

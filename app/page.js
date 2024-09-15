@@ -18,7 +18,7 @@ export default function Home() {
     <main>
       <h1 className="text-3xl font-bold">Hello world</h1>
       <form action={Logout}>
-        <Button label="Log out"></Button>
+        <Button label="Çıkış yap" aria-label="Çıkış yap" />
       </form>
     </main>
   );

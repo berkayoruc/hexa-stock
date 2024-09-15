@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 export async function updateProduct(product) {
   const data = {
     name: product.get("name"),
-    purchase_price: product.get("purchase_price"),
+    purchase_price: parseFloat(product.get("purchase_price").replace(",", "")),
     count: product.get("count"),
     id: product.get("id"),
   };

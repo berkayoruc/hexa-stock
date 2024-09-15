@@ -18,10 +18,13 @@ export async function getCategoriesSSR() {
 export async function createProduct(product) {
   const data = {
     name: product.get("name"),
-    purchase_price: product.get("purchase_price"),
-    count: product.get("count"),
+    purchase_price: parseFloat(
+      product.get("purchase_price").replaceAll(",", "")
+    ),
+    count: parseInt(product.get("count").replaceAll(",", "")),
     category_id: product.get("categories"),
   };
+  console.log(data);
   const supabase = createClient();
   const { error } = await supabase.from("product").insert({
     name: data.name,
