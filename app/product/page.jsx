@@ -3,9 +3,20 @@
 import { useEffect, useState } from "react";
 import { getProductSSR } from "../common/actions";
 import { BackButton } from "../components";
+import QRCode from "react-qr-code";
 
 const ProductPage = ({}) => {
   const [product, setProduct] = useState(null);
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get("id");
+    if (!id) {
+      return;
+    }
+    setUrl(window.location.href);
+  }, []);
 
   const getProduct = async () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -28,6 +39,7 @@ const ProductPage = ({}) => {
           <div className="h-48 w-48 bg-amber-200 rounded-md"></div>
           <h1>{product?.name}</h1>
           <h2>{product?.price}</h2>
+          {url && <QRCode value={url} size={300} />}
         </div>
       </main>
     </div>
