@@ -73,10 +73,13 @@ const QrReader = () => {
   }, [qrOn]);
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="w-full h-full mx-0 my-auto">
+    <div className="flex flex-col gap-3 w-svw h-svh">
+      <div className="w-full qr-reader:w-[430px] h-svh mx-0 my-auto">
         <video className="w-full h-full object-cover" ref={videoRef}></video>
-        <div ref={qrBoxRef} className="w-full left-0">
+        <div
+          ref={qrBoxRef}
+          style={{ width: "100% !important", left: "0 !important" }}
+        >
           <Image
             src={"/images/qr-frame.svg"}
             alt="QR Frame"

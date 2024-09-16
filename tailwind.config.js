@@ -15,7 +15,10 @@ module.exports = {
       height: {
         "svh-4rem": "calc(100svh - 4rem)",
         "svh-7rem": "calc(100svh - 7rem)",
-      }
+      },
+    },
+    screens: {
+      "qr-reader": "426px",
     },
   },
   plugins: [],
