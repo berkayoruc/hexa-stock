@@ -6,7 +6,7 @@ import QrScanner from "qr-scanner";
 import { Button } from "primereact/button";
 // import QrFrame from "qr-frame.svg";
 
-const QrReader = ({ setQrDialogVisible }) => {
+const QrReader = () => {
   const scanner = useRef();
   const videoRef = useRef(null);
   const qrBoxRef = useRef(null);

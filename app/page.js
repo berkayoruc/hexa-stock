@@ -12,6 +12,8 @@ export default function Home() {
     redirect("/login");
   };
 
+  console.log("eee")
+
   redirect("/products");
 
   return (
