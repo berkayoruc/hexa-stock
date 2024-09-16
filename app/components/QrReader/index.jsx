@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation"; // Usage: App router
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import QrScanner from "qr-scanner";
@@ -7,6 +8,7 @@ import { Button } from "primereact/button";
 // import QrFrame from "qr-frame.svg";
 
 const QrReader = () => {
+  const router = useRouter();
   const scanner = useRef();
   const videoRef = useRef(null);
   const qrBoxRef = useRef(null);
@@ -28,7 +30,7 @@ const QrReader = () => {
   const onScanFail = (err) => {
     // 🖨 Print the "err" to browser console.
     console.log(err);
-    setScannedResult("");
+    // setScannedResult("");
   };
 
   useEffect(() => {
@@ -73,8 +75,17 @@ const QrReader = () => {
   }, [qrOn]);
 
   return (
-    <div className="flex flex-col gap-3 w-svw h-svh">
-      <div className="w-full qr-reader:w-[430px] h-svh mx-0 my-auto">
+    <div className="flex flex-col gap-3 w-svw h-svh bg-slate-300">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-full qr-reader:w-[360px] h-10 z-30 flex">
+        <Button
+          aria-label="Geri dön"
+          icon="pi pi-arrow-left"
+          onClick={() => router.back()}
+          tooltip="Geri dön"
+          tooltipOptions={{ position: "bottom" }}
+        />
+      </div>
+      <div className="w-full qr-reader:w-[430px] h-svh mx-auto my-auto">
         <video className="w-full h-full object-cover" ref={videoRef}></video>
         <div
           ref={qrBoxRef}
@@ -91,9 +102,13 @@ const QrReader = () => {
       </div>
       {scannedResult && (
         <Button
-          label="Ürüne git"
+          className="w-full qr-reader:w-[360px] rounded-md absolute bottom-4 left-1/2 -translate-x-1/2 z-30"
+          label={
+            scannedResult.includes("hexa-stock.vercel")
+              ? "Ürüne git"
+              : "Linki aç"
+          }
           aria-label="Ürün sayfasını aç"
-          outlined
           size="small"
           icon="pi pi-arrow-right"
           iconPos="right"

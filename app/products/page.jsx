@@ -8,8 +8,6 @@ import MenuModal from "./modals/MenuModal";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { Dialog } from "primereact/dialog";
-import { QrReader } from "../components";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
@@ -18,7 +16,6 @@ const ProductsPage = () => {
   const [menuModal, setMenuModal] = useState(null);
   const [searchItem, setSearchItem] = useState("");
   const [inStockChecked, setInStockChecked] = useState(false);
-  const [qrDialogVisible, setQrDialogVisible] = useState(false);
 
   const handleStockChange = (e) => {
     setInStockChecked(e.target.checked);
@@ -84,14 +81,15 @@ const ProductsPage = () => {
             onChange={handleInputChange}
           />
           <div className="flex gap-2 items-center justify-between">
-            <Button
-              className="rounded-lg w-12 h-12"
-              aria-label="QR kod oku"
-              icon="pi pi-qrcode"
-              tooltip="QR oku"
-              tooltipOptions={{ position: "bottom" }}
-              onClick={() => setQrDialogVisible(true)}
-            />
+            <Link href="/qr-scanner">
+              <Button
+                className="rounded-lg w-12 h-12"
+                aria-label="QR kod oku"
+                icon="pi pi-qrcode"
+                tooltip="QR oku"
+                tooltipOptions={{ position: "bottom" }}
+              />
+            </Link>
             <Link href="/new-product">
               <Button
                 className="rounded-lg w-12 h-12"
@@ -109,20 +107,6 @@ const ProductsPage = () => {
           </label>
           <Checkbox checked={inStockChecked} onChange={handleStockChange} />
         </div>
-        <Dialog
-          header="QR Kod Okut"
-          contentClassName="bg-black"
-          headerClassName="bg-black"
-          visible={qrDialogVisible}
-          style={{ width: "50vw" }}
-          onHide={() => {
-            if (!qrDialogVisible) return;
-            setQrDialogVisible(false);
-          }}
-        >
-          <QrReader setQrDialogVisible={setQrDialogVisible} />
-        </Dialog>
-
         <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 p-2 gap-2">
           {loading && <p>{"Yükleniyor..."}</p>}
           {products.map((product) => (
