@@ -23,6 +23,7 @@ export async function getProductsSSR() {
     purchase_price,
     count,
     category (
+      id,
       name
     )
     `
@@ -37,15 +38,30 @@ export async function getProductsSSR() {
 }
 
 export async function sellProductSSR(product) {
+  console.log(product);
   const supabase = createClient();
-  const { error } = await supabase
+  // update product count
+  const updateResponse = await supabase
     .from("product")
     .update({
       count: product.count,
     })
     .eq("id", product.id);
-  if (error) {
-    console.error(error);
-    return { error };
+  if (updateResponse?.error) {
+    console.error(updateResponse?.error);
+    return { error: updateResponse?.error };
+  }
+
+  const sellResponse = await supabase.from("sold-product").insert({
+    name: product?.name,
+    purchase_price: product?.purchase_price,
+    count: product?.sell_count,
+    sold_price: product?.sell_price,
+    category_id: product?.category?.id,
+    product_id: product?.id,
+  });
+  if (sellResponse?.error) {
+    console.error(sellResponse?.error);
+    return { error: sellResponse?.error };
   }
 }

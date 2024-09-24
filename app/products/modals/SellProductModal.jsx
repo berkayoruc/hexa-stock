@@ -5,10 +5,16 @@ import { Button } from "primereact/button";
 
 const SellProductModal = ({ product, onClose }) => {
   const [count, setCount] = useState(1);
+  const [sellValue, setSellValue] = useState(product?.purchase_price ?? 0);
 
   const sellProduct = async () => {
     const newCount = product.count - count;
-    await sellProductSSR({ ...product, count: newCount });
+    await sellProductSSR({
+      ...product,
+      count: newCount,
+      sell_price: sellValue,
+      sell_count: count,
+    });
     onClose();
   };
 
@@ -30,6 +36,15 @@ const SellProductModal = ({ product, onClose }) => {
           max={product.count}
           onValueChange={(e) => setCount(e.target.value)}
           className="rounded"
+        />
+        <InputNumber
+          onValueChange={(e) => setSellValue(e.target.value)}
+          step={0.25}
+          value={sellValue}
+          min={0}
+          className="rounded"
+          currency="TRY"
+          mode="currency"
         />
         <div className="flex justify-between items-center gap-2">
           <Button
