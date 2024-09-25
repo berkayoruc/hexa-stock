@@ -1,5 +1,6 @@
 "use client";
 
+import PurchaseProductModal from "@/app/products/modals/PurchaseProductModal";
 import SellProductModal from "@/app/products/modals/SellProductModal";
 import Link from "next/link";
 import { Button } from "primereact/button";
@@ -44,17 +45,38 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
         </div>
       </div>
       <div className="p-6 pt-0 flex flex-col gap-2">
-        <Link href={`/product?id=${product?.id}`}>
+        <div className="flex justify-between items-center gap-2">
+          <Link className="w-full pro-max:w-fit pro-max:grow" href={`/product?id=${product?.id}`}>
+            <Button
+              className="w-full rounded-lg"
+              label="Ürüne Git"
+              severity="info"
+              outlined
+            />
+          </Link>
           <Button
-            className="w-full rounded-lg"
-            label="Ürüne Git"
-            severity="info"
+            className="hidden pro-max:block rounded-lg w-10 h-10"
+            severity="contrast"
             outlined
+            aria-label="QR kodu göster"
+            icon="pi pi-qrcode"
+            tooltip="QR göster"
+            tooltipOptions={{ position: "bottom" }}
           />
-        </Link>
-        <Link href={`/add-product?id=${product?.id}`}>
+        </div>
+        {/* <Link href={`/add-product?id=${product?.id}`}>
           <Button className="w-full rounded-lg" label="Stok Ekle" />
-        </Link>
+        </Link> */}
+        <Button
+          className="w-full rounded-lg"
+          label="Stok Ekle"
+          onClick={(e) => {
+            e.preventDefault();
+            setMenuModal(
+              <PurchaseProductModal product={product} onClose={sellOnClose} />
+            );
+          }}
+        />
         <Button
           className="w-full rounded-lg"
           disabled={!product?.count}

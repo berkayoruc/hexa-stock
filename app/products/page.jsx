@@ -85,7 +85,7 @@ const ProductsPage = () => {
               <Button
                 className="rounded-lg w-12 h-12"
                 aria-label="QR kod oku"
-                icon="pi pi-qrcode"
+                icon="pi pi-camera"
                 tooltip="QR oku"
                 tooltipOptions={{ position: "bottom" }}
               />
@@ -107,7 +107,7 @@ const ProductsPage = () => {
           </label>
           <Checkbox checked={inStockChecked} onChange={handleStockChange} />
         </div>
-        <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 p-2 gap-2">
+        <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-1 pro-max:grid-cols-2 sm:grid-cols-3 p-2 gap-2 sm:gap-4">
           {loading && <p>{"Yükleniyor..."}</p>}
           {products.map((product) => (
             <ProductButton

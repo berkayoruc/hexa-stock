@@ -38,30 +38,47 @@ export async function getProductsSSR() {
 }
 
 export async function sellProductSSR(product) {
-  console.log(product);
+  const { count, id, name, purchase_price, sell_count, sold_price, category } =
+    product;
   const supabase = createClient();
   // update product count
   const updateResponse = await supabase
     .from("product")
     .update({
-      count: product.count,
+      count,
     })
-    .eq("id", product.id);
+    .eq("id", id);
   if (updateResponse?.error) {
     console.error(updateResponse?.error);
     return { error: updateResponse?.error };
   }
 
   const sellResponse = await supabase.from("sold-product").insert({
-    name: product?.name,
-    purchase_price: product?.purchase_price,
-    count: product?.sell_count,
-    sold_price: product?.sell_price,
-    category_id: product?.category?.id,
-    product_id: product?.id,
+    name,
+    purchase_price,
+    count: sell_count,
+    sold_price,
+    category_id: category?.id,
+    product_id: id,
   });
   if (sellResponse?.error) {
     console.error(sellResponse?.error);
     return { error: sellResponse?.error };
+  }
+}
+
+export async function purchaseProductSSR(product) {
+  const { id, count, purchase_price } = product;
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("product")
+    .update({
+      count,
+      purchase_price,
+    })
+    .eq("id", id);
+  if (error) {
+    console.error("error", error);
+    return { error };
   }
 }

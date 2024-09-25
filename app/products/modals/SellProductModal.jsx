@@ -12,17 +12,23 @@ const SellProductModal = ({ product, onClose }) => {
     await sellProductSSR({
       ...product,
       count: newCount,
-      sell_price: sellValue,
+      sold_price: sellValue,
       sell_count: count,
     });
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded-lg w-96 flex flex-col gap-2">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+    >
+      <div
+        className="bg-white p-5 rounded-lg w-96 flex flex-col gap-2"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h1>{product.name}</h1>
-        <h3>{product.count}</h3>
+        <h3>{"Stoktaki ürün: " + product.count}</h3>
         <InputNumber
           showButtons
           buttonLayout="horizontal"

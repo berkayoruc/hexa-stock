@@ -18,7 +18,9 @@ module.exports = {
       },
     },
     screens: {
+      "pro-max": "450px",
       "qr-reader": "426px",
+      sm: "640px",
     },
   },
   plugins: [],
