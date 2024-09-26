@@ -4,16 +4,22 @@ import PurchaseProductModal from "@/app/products/modals/PurchaseProductModal";
 import SellProductModal from "@/app/products/modals/SellProductModal";
 import Link from "next/link";
 import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
+import { useState } from "react";
+import QRCode from "react-qr-code";
 
 export default function ProductButton({ product, setMenuModal, sellOnClose }) {
-  return (
-    // <button className="flex flex-col items-center justify-center w-full h-fit bg-white">
-    //   <Link href={`/product?id=${product?.id}`}>
-    //     <div className="h-9 w-9 rounded-md bg-amber-200"></div>
-    //     <span>{product?.name}</span>
-    //   </Link>
-    // </button>
+  const [qrModalVisible, setQrModalVisible] = useState(false);
 
+  const parseURL = () => {
+    const { id } = product;
+    if (typeof id !== "number") {
+      return;
+    }
+    return `${window.location.origin}/product?id=${id}`;
+  };
+
+  return (
     <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full">
       {/* <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">
           <img
@@ -46,7 +52,10 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
       </div>
       <div className="p-6 pt-0 flex flex-col gap-2">
         <div className="flex justify-between items-center gap-2">
-          <Link className="w-full pro-max:w-fit pro-max:grow" href={`/product?id=${product?.id}`}>
+          <Link
+            className="w-full pro-max:w-fit pro-max:grow"
+            href={`/product?id=${product?.id}`}
+          >
             <Button
               className="w-full rounded-lg"
               label="Ürüne Git"
@@ -62,6 +71,7 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
             icon="pi pi-qrcode"
             tooltip="QR göster"
             tooltipOptions={{ position: "bottom" }}
+            onClick={() => setQrModalVisible(true)}
           />
         </div>
         {/* <Link href={`/add-product?id=${product?.id}`}>
@@ -91,6 +101,13 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
           severity="success"
         />
       </div>
+      <Dialog
+        dismissableMask
+        visible={qrModalVisible}
+        onHide={() => setQrModalVisible(false)}
+      >
+        <QRCode value={parseURL()} size={300} />
+      </Dialog>
     </div>
   );
 }
