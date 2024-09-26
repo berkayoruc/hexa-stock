@@ -5,11 +5,14 @@ import SellProductModal from "@/app/products/modals/SellProductModal";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import QRCode from "react-qr-code";
+import * as htmlToImage from "html-to-image";
 
 export default function ProductButton({ product, setMenuModal, sellOnClose }) {
   const [qrModalVisible, setQrModalVisible] = useState(false);
+
+  const qrCodeRef = useRef(null);
 
   const parseURL = () => {
     const { id } = product;
@@ -17,6 +20,20 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
       return;
     }
     return `${window.location.origin}/product?id=${id}`;
+  };
+
+  const handleQrCodeDownload = () => {
+    htmlToImage
+      .toPng(qrCodeRef.current)
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = `${product.name}-${product.id}-qr-code.png`;
+        link.click();
+      })
+      .catch((error) => {
+        console.error("Error generating while QR code:", error);
+      });
   };
 
   return (
@@ -102,11 +119,34 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
         />
       </div>
       <Dialog
+        showHeader={false}
         dismissableMask
+        draggable={false}
+        resizable={false}
         visible={qrModalVisible}
         onHide={() => setQrModalVisible(false)}
+        footer={
+          <div className="flex gap-1 items-center justify-end">
+            <Button
+              label="Kapat"
+              size="small"
+              aria-label="QR kodu kapat"
+              outlined
+              severity="secondary"
+              onClick={() => setQrModalVisible(false)}
+            />
+            <Button
+              label="Kaydet"
+              size="small"
+              aria-label="QR kodu kaydet"
+              onClick={handleQrCodeDownload}
+            />
+          </div>
+        }
       >
-        <QRCode value={parseURL()} size={300} />
+        <div ref={qrCodeRef} className="pt-10 pb-2 px-4 bg-white">
+          <QRCode value={parseURL()} size={300} />
+        </div>
       </Dialog>
     </div>
   );
