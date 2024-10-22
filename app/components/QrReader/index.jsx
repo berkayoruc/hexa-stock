@@ -20,7 +20,6 @@ const QrReader = () => {
   // Success
   const onScanSuccess = (result) => {
     // 🖨 Print the "result" to browser console.
-    console.log(result);
     // ✅ Handle success.
     // 😎 You can do whatever you want with the scanned result.
     setScannedResult(result?.data);
@@ -29,7 +28,7 @@ const QrReader = () => {
   // Fail
   const onScanFail = (err) => {
     // 🖨 Print the "err" to browser console.
-    console.log(err);
+    // console.log(err);
     // setScannedResult("");
   };
 
@@ -76,12 +75,18 @@ const QrReader = () => {
 
   return (
     <div className="flex flex-col gap-3 w-svw h-svh bg-slate-300">
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-full qr-reader:w-[360px] h-10 z-30 flex">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-full qr-reader:w-[360px] h-10 z-30 flex px-4 qr-reader:px-0 justify-between">
         <Button
           aria-label="Geri dön"
           icon="pi pi-arrow-left"
           onClick={() => router.back()}
           tooltip="Geri dön"
+          tooltipOptions={{ position: "bottom" }}
+        />
+        <Button
+          aria-label="Geçmiş urller"
+          icon="pi pi-history"
+          tooltip="Geçmiş"
           tooltipOptions={{ position: "bottom" }}
         />
       </div>
@@ -102,11 +107,11 @@ const QrReader = () => {
       </div>
       {scannedResult && (
         <Button
-          className="w-full qr-reader:w-[360px] rounded-md absolute bottom-4 left-1/2 -translate-x-1/2 z-30"
+          className="max-w-full w-fit rounded-md absolute bottom-4 left-1/2 -translate-x-1/2 z-30"
           label={
             scannedResult.includes("hexa-stock.vercel")
               ? "Ürüne git"
-              : "Linki aç"
+              : new URL(scannedResult)?.hostname
           }
           aria-label="Ürün sayfasını aç"
           size="small"
