@@ -133,12 +133,19 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
               aria-label="QR kodu kapat"
               outlined
               severity="secondary"
-              onClick={() => setQrModalVisible(false)}
+              onClick={() => {
+                // fetch(
+                //   "https://latest.currency-api.pages.dev/v1/currencies/usd.min.json"
+                // )
+                //   .then((response) => response.json())
+                //   .then((data) => console.log(data.usd.try));
+                setQrModalVisible(false);
+              }}
             />
             <Button
-              label="Kaydet"
+              label="Yazdır"
               size="small"
-              aria-label="QR kodu kaydet"
+              aria-label="QR kodu yazdır"
               onClick={handleQrCodeDownload}
             />
           </div>
