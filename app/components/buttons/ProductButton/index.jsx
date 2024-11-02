@@ -151,8 +151,12 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
           </div>
         }
       >
-        <div ref={qrCodeRef} className="pt-10 pb-2 px-4 bg-white">
+        <div
+          ref={qrCodeRef}
+          className="pt-10 pb-2 px-4 bg-white flex flex-col gap-2 items-center"
+        >
           <QRCode value={parseURL()} size={300} />
+          <h5 className="font-bold text-lg">{product?.name}</h5>
         </div>
       </Dialog>
     </div>

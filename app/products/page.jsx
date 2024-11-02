@@ -65,11 +65,20 @@ const ProductsPage = () => {
             className="rounded-lg w-12 h-12"
             aria-label="Menü"
             icon="pi pi-bars"
-            onClick={() =>
+            onClick={() => {
+              const threeDProducts = [[], [], []];
+              for (let i = 0; i < products.length; i++) {
+                const arrayIndex = i % 3;
+                threeDProducts[arrayIndex].push(products[i]);
+              }
               setMenuModal(
-                <MenuModal setMenuModal={setMenuModal} logout={logout} />
-              )
-            }
+                <MenuModal
+                  setMenuModal={setMenuModal}
+                  logout={logout}
+                  products={threeDProducts}
+                />
+              );
+            }}
             tooltip="Menü"
             tooltipOptions={{ position: "bottom" }}
           />

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Button } from "primereact/button";
+import { PDFDocument } from "../../components";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
-const MenuModal = ({ setMenuModal, logout }) => {
+const MenuModal = ({ setMenuModal, logout, products }) => {
   const fnCloseModal = () => setMenuModal(false);
 
   return (
@@ -28,6 +30,14 @@ const MenuModal = ({ setMenuModal, logout }) => {
             className="w-full rounded"
             onClick={fnCloseModal}
           />
+          <PDFDownloadLink
+            document={<PDFDocument products={products} />}
+            fileName="tum-qr-code.pdf"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? "Loading document..." : "Download now!"
+            }
+          </PDFDownloadLink>
         </div>
         <div className="flex justify-between gap-4 mb-4">
           <form action={logout} className="w-full">
