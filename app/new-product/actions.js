@@ -24,7 +24,6 @@ export async function createProduct(product) {
     count: parseInt(product.get("count").replaceAll(",", "")),
     category_id: product.get("categories"),
   };
-  console.log(data);
   const supabase = createClient();
   const { error } = await supabase.from("product").insert({
     name: data.name,

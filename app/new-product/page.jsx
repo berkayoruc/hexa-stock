@@ -15,7 +15,6 @@ const NewProductPage = () => {
 
   const getCategories = async () => {
     const ssrCategories = await getCategoriesSSR();
-    console.log(ssrCategories);
     setCategories(ssrCategories);
   };
 
