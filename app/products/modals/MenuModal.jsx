@@ -33,9 +33,10 @@ const MenuModal = ({ setMenuModal, logout, products }) => {
           <PDFDownloadLink
             document={<PDFDocument products={products} />}
             fileName="tum-qr-code.pdf"
+            className="bg-[#2196f3] w-full rounded text-white flex items-center justify-center p-button p-component"
           >
             {({ blob, url, loading, error }) =>
-              loading ? "Loading document..." : "Download now!"
+              loading ? "PDF Hazırlanıyor" : "QR Codeları İndir"
             }
           </PDFDownloadLink>
         </div>
