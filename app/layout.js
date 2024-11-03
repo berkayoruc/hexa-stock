@@ -7,8 +7,8 @@ import "primeicons/primeicons.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Hexa Stock",
-  description: "A simple stock management app",
+  title: "Stok Kovanı",
+  description: "Kullanışlı stok takip uygulaması",
 };
 
 export default function RootLayout({ children }) {
