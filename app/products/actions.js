@@ -82,3 +82,31 @@ export async function purchaseProductSSR(product) {
     return { error };
   }
 }
+
+export async function createCategory(category) {
+  console.log(category);
+  const data = {
+    name: category.get("category_name"),
+  };
+  const supabase = createClient();
+  const { data: categories, cError } = await supabase
+    .from("category")
+    .select("name");
+  if (categories.length) {
+    if (
+      categories.filter(
+        (cat) => cat.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
+      ).length
+    ) {
+      console.warn("Category already exists");
+      return "Category already exists";
+    }
+  } else {
+    console.error(cError);
+  }
+  const { error } = await supabase.from("category").insert({
+    name: data.name,
+  });
+  console.log("error", error);
+  return error;
+}

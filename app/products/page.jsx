@@ -2,18 +2,21 @@
 
 import { useEffect, useState } from "react";
 import ProductButton from "../components/buttons/ProductButton";
-import { getProductsSSR, logout } from "./actions";
+import { createCategory, getProductsSSR, logout } from "./actions";
 import Link from "next/link";
 import MenuModal from "./modals/MenuModal";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { FloatLabel } from "primereact/floatlabel";
+import { Dialog } from "primereact/dialog";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuModal, setMenuModal] = useState(null);
+  const [showCategoryAddModal, setShowCategoryAddModal] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [inStockChecked, setInStockChecked] = useState(false);
 
@@ -76,6 +79,7 @@ const ProductsPage = () => {
                   setMenuModal={setMenuModal}
                   logout={logout}
                   products={threeDProducts}
+                  setShowCategoryAddModal={setShowCategoryAddModal}
                 />
               );
             }}
@@ -132,6 +136,41 @@ const ProductsPage = () => {
         </main>
       </div>
       {menuModal && menuModal}
+      <Dialog
+        visible={showCategoryAddModal}
+        onHide={() => setShowCategoryAddModal(false)}
+        dismissableMask
+        header="Kategori Ekle"
+        draggable={false}
+        className="min-w-[60svw]"
+      >
+        <form>
+          <FloatLabel className="mt-6 w-full">
+            <InputText
+              className="w-full"
+              id="category_name"
+              name="category_name"
+            />
+            <label htmlFor="category_name">{"Kategori ekle"}</label>
+          </FloatLabel>
+          <div className="w-full flex justify-end gap-2 mt-6">
+            <Button
+              label="Vazgeç"
+              outlined
+              severity="secondary"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowCategoryAddModal(false);
+              }}
+            />
+            <Button
+              label="Kaydet"
+              formAction={createCategory}
+              onClick={() => setShowCategoryAddModal(false)}
+            />
+          </div>
+        </form>
+      </Dialog>
     </>
   );
 };

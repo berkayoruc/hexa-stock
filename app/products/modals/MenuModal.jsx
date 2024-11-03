@@ -1,11 +1,16 @@
-"use client"
+"use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 import { Button } from "primereact/button";
 import { PDFDocument } from "../../components";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-const MenuModal = ({ setMenuModal, logout, products }) => {
+const MenuModal = ({
+  setMenuModal,
+  logout,
+  products,
+  setShowCategoryAddModal,
+}) => {
   const fnCloseModal = () => setMenuModal(false);
 
   return (
@@ -18,14 +23,20 @@ const MenuModal = ({ setMenuModal, logout, products }) => {
         className="bg-white w-3/4 px-4 max-w-96 h-1/2 rounded-lg relative flex flex-col justify-between shadow-lg"
       >
         <div className="mt-4 flex flex-col gap-3">
-          <h1 className="text-center mb-2 text-xl font-bold">Hexa Stock</h1>
-          <Link href={`/new-category`}>
-            <Button
-              aria-label="Kategori ekle"
-              label="Kategori ekle"
-              className="w-full rounded"
-            />
-          </Link>
+          <h1 className="text-center mb-2 text-xl font-bold">
+            {"Stok Kovanı"}
+          </h1>
+          {/* <Link href={`/new-category`}> */}
+          <Button
+            aria-label="Kategori ekle"
+            label="Kategori ekle"
+            className="w-full rounded"
+            onClick={() => {
+              setMenuModal(false);
+              setShowCategoryAddModal(true);
+            }}
+          />
+          {/* </Link> */}
           <Button
             aria-label="Kategoriler"
             label="Kategoriler"
