@@ -4,19 +4,21 @@ import { useEffect, useState } from "react";
 import ProductButton from "../components/buttons/ProductButton";
 import { createCategory, getProductsSSR, logout } from "./actions";
 import Link from "next/link";
-import MenuModal from "./modals/MenuModal";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { Dialog } from "primereact/dialog";
+import { PDFDocument } from "../components/index";
+
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [menuModal, setMenuModal] = useState(null);
   const [showCategoryAddModal, setShowCategoryAddModal] = useState(false);
+  const [showMenuModal, setShowMenuModal] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [inStockChecked, setInStockChecked] = useState(false);
 
@@ -74,14 +76,7 @@ const ProductsPage = () => {
                 const arrayIndex = i % 3;
                 threeDProducts[arrayIndex].push(products[i]);
               }
-              setMenuModal(
-                <MenuModal
-                  setMenuModal={setMenuModal}
-                  logout={logout}
-                  products={threeDProducts}
-                  setShowCategoryAddModal={setShowCategoryAddModal}
-                />
-              );
+              setShowMenuModal(true);
             }}
             tooltip="Menü"
             tooltipOptions={{ position: "bottom" }}
@@ -123,19 +118,10 @@ const ProductsPage = () => {
         <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-1 pro-max:grid-cols-2 sm:grid-cols-3 p-2 gap-2 sm:gap-4">
           {loading && <p>{"Yükleniyor..."}</p>}
           {products.map((product) => (
-            <ProductButton
-              key={product.id}
-              product={product}
-              setMenuModal={setMenuModal}
-              sellOnClose={() => {
-                getProducts();
-                setMenuModal(null);
-              }}
-            />
+            <ProductButton key={product.id} product={product} />
           ))}
         </main>
       </div>
-      {menuModal && menuModal}
       <Dialog
         visible={showCategoryAddModal}
         onHide={() => setShowCategoryAddModal(false)}
@@ -170,6 +156,74 @@ const ProductsPage = () => {
             />
           </div>
         </form>
+      </Dialog>
+      <Dialog
+        visible={showMenuModal}
+        onHide={() => setShowMenuModal(false)}
+        dismissableMask
+        header="Stok Kovanı"
+        draggable={false}
+        className="min-w-[50svw]"
+      >
+        <div className="flex flex-col items-center justify-start gap-4">
+          <Button
+            aria-label="Kategori ekle"
+            label="Kategori ekle"
+            className="w-full rounded"
+            onClick={() => {
+              setShowMenuModal(false);
+              setShowCategoryAddModal(true);
+            }}
+          />
+          <Button
+            aria-label="Kategoriler"
+            label="Kategoriler"
+            className="w-full rounded"
+            onClick={() => {
+              setShowMenuModal(false);
+            }}
+          />
+          <PDFDownloadLink
+            document={
+              <PDFDocument
+                getProducts={() => {
+                  const threeDProducts = [[], [], []];
+                  for (let i = 0; i < products.length; i++) {
+                    const arrayIndex = i % 3;
+                    threeDProducts[arrayIndex].push(products[i]);
+                  }
+                  return threeDProducts;
+                }}
+              />
+            }
+            fileName="tum-qr-code.pdf"
+            className="bg-[#2196f3] w-full rounded text-white flex items-center justify-center p-button p-component"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? "PDF Hazırlanıyor" : "QR Codeları İndir"
+            }
+          </PDFDownloadLink>
+          <div className="w-full justify-end items-end mt-8 flex gap-4">
+            <form action={logout} className="w-full">
+              <Button
+                size="small"
+                className="rounded w-full"
+                severity="danger"
+                aria-label="Çıkış yap"
+                label="Çıkış yap"
+              />
+            </form>
+            <Button
+              size="small"
+              severity="secondary"
+              outlined
+              aria-label="Kapat"
+              label="Kapat"
+              onClick={() => setShowMenuModal(false)}
+              className="w-full rounded"
+            />
+          </div>
+        </div>
       </Dialog>
     </>
   );

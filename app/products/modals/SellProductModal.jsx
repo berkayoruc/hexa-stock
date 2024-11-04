@@ -19,58 +19,50 @@ const SellProductModal = ({ product, onClose }) => {
   };
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-    >
-      <div
-        className="bg-white p-5 rounded-lg w-96 flex flex-col gap-2"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h1>{product.name}</h1>
-        <h3>{"Stoktaki ürün: " + product.count}</h3>
-        <InputNumber
-          showButtons
-          buttonLayout="horizontal"
-          step={1}
-          decrementButtonClassName="p-button-danger"
-          incrementButtonClassName="p-button-success"
-          incrementButtonIcon="pi pi-plus"
-          decrementButtonIcon="pi pi-minus"
-          value={count}
-          min={1}
-          max={product.count}
-          onValueChange={(e) => setCount(e.target.value)}
-          className="rounded"
+    <div className="flex flex-col gap-2">
+      <h1>{product.name}</h1>
+      <h3>{"Stoktaki ürün: " + product.count}</h3>
+      <InputNumber
+        showButtons
+        buttonLayout="horizontal"
+        step={1}
+        decrementButtonClassName="p-button-danger"
+        incrementButtonClassName="p-button-success"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+        value={count}
+        min={1}
+        max={product.count}
+        onValueChange={(e) => setCount(e.target.value)}
+        className="rounded"
+      />
+      <InputNumber
+        onValueChange={(e) => setSellValue(e.target.value)}
+        step={0.25}
+        value={sellValue}
+        min={0}
+        className="rounded"
+        currency="TRY"
+        mode="currency"
+      />
+      <div className="flex justify-between items-center gap-2">
+        <Button
+          size="small"
+          label="Sat"
+          aria-label="Satış yap"
+          severity="danger"
+          onClick={sellProduct}
+          className="w-full"
         />
-        <InputNumber
-          onValueChange={(e) => setSellValue(e.target.value)}
-          step={0.25}
-          value={sellValue}
-          min={0}
-          className="rounded"
-          currency="TRY"
-          mode="currency"
+        <Button
+          aria-label="Vazgeç"
+          label="Vazgeç"
+          className="rounded w-1/2"
+          severity="secondary"
+          outlined
+          size="small"
+          onClick={onClose}
         />
-        <div className="flex justify-between items-center gap-2">
-          <Button
-            size="small"
-            label="Sat"
-            aria-label="Satış yap"
-            severity="danger"
-            onClick={sellProduct}
-            className="w-full"
-          />
-          <Button
-            aria-label="Vazgeç"
-            label="Vazgeç"
-            className="rounded w-1/2"
-            severity="secondary"
-            outlined
-            size="small"
-            onClick={onClose}
-          />
-        </div>
       </div>
     </div>
   );

@@ -1,16 +1,18 @@
 "use client";
 
-import PurchaseProductModal from "@/app/products/modals/PurchaseProductModal";
-import SellProductModal from "@/app/products/modals/SellProductModal";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import * as htmlToImage from "html-to-image";
+import PurchaseProductModal from "@/app/products/modals/PurchaseProductModal";
+import SellProductModal from "@/app/products/modals/SellProductModal";
 
-export default function ProductButton({ product, setMenuModal, sellOnClose }) {
-  const [qrModalVisible, setQrModalVisible] = useState(false);
+export default function ProductButton({ product }) {
+  const [showQrModal, setShowQrModal] = useState(false);
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [showSellModal, setShowSellModal] = useState(false);
 
   const qrCodeRef = useRef(null);
 
@@ -94,25 +96,47 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
         {/* <Link href={`/add-product?id=${product?.id}`}>
           <Button className="w-full rounded-lg" label="Stok Ekle" />
         </Link> */}
+        <Dialog
+          visible={showPurchaseModal}
+          onHide={() => setShowPurchaseModal(false)}
+          dismissableMask
+          header="Stok Ekle"
+          draggable={false}
+          className="min-w-[60svw]"
+        >
+          <PurchaseProductModal
+            product={product}
+            onClose={() => setShowPurchaseModal(false)}
+          />
+        </Dialog>
         <Button
           className="w-full rounded-lg"
           label="Stok Ekle"
           onClick={(e) => {
             e.preventDefault();
-            setMenuModal(
-              <PurchaseProductModal product={product} onClose={sellOnClose} />
-            );
+            setShowPurchaseModal(true);
           }}
         />
+        <Dialog
+          visible={showSellModal}
+          onHide={() => setShowSellModal(false)}
+          dismissableMask
+          header="Ürün Sat"
+          draggable={false}
+          className="min-w-[60svw]"
+        >
+          <SellProductModal
+            product={product}
+            onClose={() => setShowSellModal(false)}
+          />
+        </Dialog>
         <Button
           className="w-full rounded-lg"
           disabled={!product?.count}
           onClick={(e) => {
             e.preventDefault();
             if (product?.count === 0) return;
-            setMenuModal(
-              <SellProductModal product={product} onClose={sellOnClose} />
-            );
+            setShowSellModal(true);
           }}
           label="Satış Yap"
           severity="success"
@@ -123,8 +147,8 @@ export default function ProductButton({ product, setMenuModal, sellOnClose }) {
         dismissableMask
         draggable={false}
         resizable={false}
-        visible={qrModalVisible}
-        onHide={() => setQrModalVisible(false)}
+        visible={showQrModal}
+        onHide={() => setShowQrModal(false)}
         footer={
           <div className="flex gap-1 items-center justify-end">
             <Button

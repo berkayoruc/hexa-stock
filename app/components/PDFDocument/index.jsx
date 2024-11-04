@@ -11,7 +11,7 @@ import {
 
 import { createQRCodeAsBase64 } from "../../utils/createQrAsBase64";
 
-const PDFDocument = ({ products }) => {
+const PDFDocument = ({ getProducts }) => {
   // Create styles
   const styles = StyleSheet.create({
     page: {
@@ -20,10 +20,12 @@ const PDFDocument = ({ products }) => {
     },
     section: {
       margin: 8,
-    //   padding: 10,
+      //   padding: 10,
       flexGrow: 1,
     },
   });
+
+  const products = getProducts();
 
   return (
     <Document>
