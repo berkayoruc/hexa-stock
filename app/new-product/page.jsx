@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createProduct, getCategoriesSSR } from "./actions";
-import { BackButton } from "../components";
+import { BackButton } from "@components/index";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";

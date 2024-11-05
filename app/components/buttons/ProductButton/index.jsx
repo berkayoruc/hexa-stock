@@ -6,8 +6,8 @@ import { Dialog } from "primereact/dialog";
 import { useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import * as htmlToImage from "html-to-image";
-import PurchaseProductModal from "@/app/products/modals/PurchaseProductModal";
-import SellProductModal from "@/app/products/modals/SellProductModal";
+import PurchaseProductModal from "@products/modals/PurchaseProductModal";
+import SellProductModal from "@products/modals/SellProductModal";
 
 export default function ProductButton({ product }) {
   const [showQrModal, setShowQrModal] = useState(false);

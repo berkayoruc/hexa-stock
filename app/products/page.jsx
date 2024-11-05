@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ProductButton from "../components/buttons/ProductButton";
+
 import { createCategory, getProductsSSR, logout } from "./actions";
 import Link from "next/link";
 import { Checkbox } from "primereact/checkbox";
@@ -9,7 +9,7 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { Dialog } from "primereact/dialog";
-import { PDFDocument } from "../components/index";
+import { PDFDocument, ProductButton } from "@components/index";
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
