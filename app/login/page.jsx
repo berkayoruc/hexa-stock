@@ -5,8 +5,8 @@ import { InputText } from "primereact/inputtext";
 
 export default function LoginPage() {
   return (
-    <div className="surface-ground flex items-center justify-center min-h-screen min-w-screen overflow-hidden">
-      <div className="flex flex-column align-items-center justify-content-center">
+    <div className="bg-white flex items-center justify-center min-h-screen min-w-[100svw] overflow-hidden">
+      <div className="flex flex-column items-center justify-center">
         <div
           style={{
             borderRadius: "56px",
@@ -16,7 +16,7 @@ export default function LoginPage() {
           }}
         >
           <div
-            className="w-full surface-card py-8 px-5 sm:px-8"
+            className="w-full bg-white py-8 px-5 sm:px-8"
             style={{ borderRadius: "53px" }}
           >
             <div className="text-center mb-5">
@@ -39,8 +39,9 @@ export default function LoginPage() {
                 type="text"
                 name="email"
                 required
-                placeholder="E-posta"
-                className="w-full md:w-30rem mb-5"
+                placeholder="E-posta adresi"
+                className="w-full md:w-[30rem] mb-5"
+                inputClassName="w-full"
                 style={{ padding: "1rem" }}
               />
               <label
@@ -55,7 +56,7 @@ export default function LoginPage() {
                 name="password"
                 toggleMask
                 className="w-full mb-5"
-                inputClassName="w-full p-3 md:w-30rem"
+                inputClassName="w-full p-3"
                 required
                 feedback={false}
                 pt={{ iconField: { root: { className: "w-full" } } }}

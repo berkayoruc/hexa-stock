@@ -21,6 +21,7 @@ module.exports = {
       "pro-max": "450px",
       "qr-reader": "426px",
       sm: "640px",
+      md: "768px",
     },
   },
   plugins: [],
