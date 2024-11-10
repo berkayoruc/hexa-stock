@@ -16,10 +16,10 @@ export default function LoginPage() {
           }}
         >
           <div
-            className="w-full bg-white py-8 px-5 sm:px-8"
+            className="w-full bg-white py-8 px-5 sm:px-8 flex flex-col gap-2"
             style={{ borderRadius: "53px" }}
           >
-            <div className="text-center mb-5">
+            <div className="text-center">
               <div className="text-900 text-3xl font-medium mb-3">
                 {"Hoşgeldiniz!"}
               </div>
@@ -27,41 +27,45 @@ export default function LoginPage() {
                 {"Devam etmek için giriş yapın"}
               </span>
             </div>
-            <form>
-              <label
-                htmlFor="email1"
-                className="block text-900 text-xl font-medium mb-2"
-              >
-                {"E-posta"}
-              </label>
-              <InputText
-                id="email1"
-                type="text"
-                name="email"
-                required
-                placeholder="E-posta adresi"
-                className="w-full md:w-[30rem] mb-5"
-                inputClassName="w-full"
-                style={{ padding: "1rem" }}
-              />
-              <label
-                htmlFor="password1"
-                className="block text-900 font-medium text-xl mb-2"
-              >
-                {"Şifre"}
-              </label>
-              <Password
-                inputId="password1"
-                type="password"
-                name="password"
-                toggleMask
-                className="w-full mb-5"
-                inputClassName="w-full p-3"
-                required
-                feedback={false}
-                pt={{ iconField: { root: { className: "w-full" } } }}
-                placeholder="Şifre"
-              />
+            <form className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="email1"
+                  className="block text-900 text-xl font-medium mb-2"
+                >
+                  {"E-posta"}
+                </label>
+                <InputText
+                  id="email1"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="E-posta adresi"
+                  className="w-full md:w-[30rem]"
+                  inputClassName="w-full"
+                  style={{ padding: "1rem" }}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="password1"
+                  className="block text-900 font-medium text-xl mb-2"
+                >
+                  {"Şifre"}
+                </label>
+                <Password
+                  inputId="password1"
+                  type="password"
+                  name="password"
+                  toggleMask
+                  // className="w-full"
+                  inputClassName="w-full p-4"
+                  required
+                  feedback={false}
+                  pt={{ iconField: { root: { className: "w-full" } } }}
+                  placeholder="Şifre"
+                />
+              </div>
               <Button
                 label="Giriş yap"
                 type="submit"
