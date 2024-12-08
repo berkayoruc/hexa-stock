@@ -90,7 +90,7 @@ export default function ProductButton({ product }) {
             icon="pi pi-qrcode"
             tooltip="QR göster"
             tooltipOptions={{ position: "bottom" }}
-            onClick={() => setQrModalVisible(true)}
+            onClick={() => setShowQrModal(true)}
           />
         </div>
         {/* <Link href={`/add-product?id=${product?.id}`}>
@@ -163,7 +163,7 @@ export default function ProductButton({ product }) {
                 // )
                 //   .then((response) => response.json())
                 //   .then((data) => console.log(data.usd.try));
-                setQrModalVisible(false);
+                setShowQrModal(false);
               }}
             />
             <Button

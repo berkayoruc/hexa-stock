@@ -12,6 +12,7 @@ import { Dialog } from "primereact/dialog";
 import { PDFDocument, ProductButton } from "@components/index";
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import AddProductModal from "./modals/AddProductModal";
 
 const ProductsPage = () => {
   const [ssrProducts, setSsrProducts] = useState([]);
@@ -19,6 +20,7 @@ const ProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [showCategoryAddModal, setShowCategoryAddModal] = useState(false);
   const [showMenuModal, setShowMenuModal] = useState(false);
+  const [showNewProductModal, setShowNewProductModal] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [inStockChecked, setInStockChecked] = useState(false);
 
@@ -98,15 +100,27 @@ const ProductsPage = () => {
                 tooltipOptions={{ position: "bottom" }}
               />
             </Link>
-            <Link href="/new-product">
-              <Button
-                className="rounded-lg w-12 h-12"
-                aria-label="Ekle"
-                icon="pi pi-plus"
-                tooltip="Ekle"
-                tooltipOptions={{ position: "bottom" }}
+            <Button
+              className="rounded-lg w-12 h-12"
+              aria-label="Ekle"
+              icon="pi pi-plus"
+              tooltip="Ekle"
+              tooltipOptions={{ position: "bottom" }}
+              onClick={() => setShowNewProductModal(true)}
+            />
+            <Dialog
+              visible={showNewProductModal}
+              onHide={() => setShowNewProductModal(false)}
+              dismissableMask
+              header="Ürün Ekle"
+              draggable={false}
+              className="min-w-[60svw]"
+            >
+              <AddProductModal
+                fnGetProducts={getProducts}
+                onClose={() => setShowNewProductModal(false)}
               />
-            </Link>
+            </Dialog>
           </div>
         </header>
         <div className="w-full h-12 flex items-center justify-start px-4 bg-slate-200">
