@@ -22,67 +22,65 @@ const AddProductModal = ({ fnGetProducts, onClose }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2">
-      <form className="max-w-sm mx-auto flex flex-col gap-4">
-        <FloatLabel className="mt-8">
-          <InputText
-            type="text"
-            id="name"
-            name="name"
-            className="w-full rounded-lg"
-            placeholder="Ürün adını girin"
-            required
-          />
-          <label htmlFor="name">{"Ürün Adı"}</label>
-        </FloatLabel>
-        <FloatLabel className="mt-4">
-          <InputNumber
-            id="purchase_price"
-            name="purchase_price"
-            className="w-full"
-            inputClassName="rounded-lg"
-            placeholder="Alış fiyatını girin"
-            required
-          />
-          <label htmlFor="purchase_price">{"Alış Fiyatı"}</label>
-        </FloatLabel>
-        <FloatLabel className="mt-4">
-          <InputNumber
-            id="count"
-            name="count"
-            className="w-full"
-            inputClassName="rounded-lg"
-            placeholder="Adet girin"
-            required
-          />
-          <label htmlFor="count">{"Adet"}</label>
-        </FloatLabel>
-        <Dropdown
-          id="categories"
-          name="categories"
-          placeholder="Kategori seçin"
-          options={categories}
+    <form className="flex flex-col gap-4">
+      <FloatLabel className="mt-8">
+        <InputText
+          type="text"
+          id="name"
+          name="name"
+          className="w-full rounded-lg"
+          placeholder="Ürün adını girin"
           required
-          className="rounded-lg"
-          optionLabel="name"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.value)}
-          optionValue="id"
         />
-        <Button
-          formAction={async (product) => {
-            const status = await createProduct(product);
-            if (status === 201 && fnGetProducts) {
-              fnGetProducts();
-            }
-          }}
+        <label htmlFor="name">{"Ürün Adı"}</label>
+      </FloatLabel>
+      <FloatLabel className="mt-4">
+        <InputNumber
+          id="purchase_price"
+          name="purchase_price"
           className="w-full"
-          label="Ürün Ekle"
-          type="submit"
-          onClick={onClose}
+          inputClassName="rounded-lg"
+          placeholder="Alış fiyatını girin"
+          required
         />
-      </form>
-    </div>
+        <label htmlFor="purchase_price">{"Alış Fiyatı"}</label>
+      </FloatLabel>
+      <FloatLabel className="mt-4">
+        <InputNumber
+          id="count"
+          name="count"
+          className="w-full"
+          inputClassName="rounded-lg"
+          placeholder="Adet girin"
+          required
+        />
+        <label htmlFor="count">{"Adet"}</label>
+      </FloatLabel>
+      <Dropdown
+        id="categories"
+        name="categories"
+        placeholder="Kategori seçin"
+        options={categories}
+        required
+        className="rounded-lg"
+        optionLabel="name"
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.value)}
+        optionValue="id"
+      />
+      <Button
+        formAction={async (product) => {
+          const status = await createProduct(product);
+          if (status === 201 && fnGetProducts) {
+            fnGetProducts();
+          }
+        }}
+        className="w-full"
+        label="Ürün Ekle"
+        type="submit"
+        onClick={onClose}
+      />
+    </form>
   );
 };
 
