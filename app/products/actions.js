@@ -25,7 +25,8 @@ export async function getProductsSSR() {
     category (
       id,
       name
-    )
+    ),
+    updated_at
     `
     )
     .order("name", { ascending: true });
@@ -68,13 +69,14 @@ export async function sellProductSSR(product) {
 }
 
 export async function purchaseProductSSR(product) {
-  const { id, count, purchase_price } = product;
+  const { id, count, purchase_price, purchase_dollar_price } = product;
   const supabase = createClient();
   const { error } = await supabase
     .from("product")
     .update({
       count,
       purchase_price,
+      purchase_dollar_price,
     })
     .eq("id", id);
   if (error) {

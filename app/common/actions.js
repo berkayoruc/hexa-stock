@@ -14,7 +14,8 @@ export async function getProductSSR(id) {
       count,
       category (
         name
-      )
+      ),
+      purchase_dollar_price
       `
     )
     .eq("id", id);

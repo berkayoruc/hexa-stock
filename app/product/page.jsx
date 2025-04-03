@@ -49,6 +49,11 @@ const ProductPage = ({}) => {
             <span className="font-medium text-xl">{`Maliyet: ${
               product?.purchase_price ?? "-"
             }₺`}</span>
+            {product?.purchase_dollar_price && product?.purchase_price && (
+              <span className="font-medium text-xl italic font-sans text-gray-500">{`Maliyet: $${
+                (product.purchase_price / product.purchase_dollar_price).toFixed(2)
+              }`}</span>
+            )}
             <span className="font-medium text-xl">{`Stok: ${
               product?.count ?? "-"
             }`}</span>

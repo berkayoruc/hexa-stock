@@ -67,6 +67,9 @@ export default function ProductButton({ product, getProducts }) {
               {product?.count}
             </p>
           </div>
+          {product?.updated_at && (
+            <span className="text-sm">{new Date(product?.updated_at).toLocaleString()}</span>
+          )}
         </div>
       </div>
       <div className="p-6 pt-0 flex flex-col gap-2">

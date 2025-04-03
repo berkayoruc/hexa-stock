@@ -15,11 +15,18 @@ const PurchaseProductModal = ({ product, onClose, getProducts }) => {
 
   const purchaseProduct = async () => {
     const newCount = product?.count + count;
-    await purchaseProductSSR({
+    const updatedProduct = {
       ...product,
       count: newCount,
       purchase_price: purchasePrice,
-    });
+    };
+    let tryRate = await fetch("https://open.er-api.com/v6/latest/USD")
+      .then((res) => res.json())
+      .then((data) => data?.rates?.TRY);
+    if (tryRate) {
+      updatedProduct.purchase_dollar_price = tryRate;
+    }
+    await purchaseProductSSR(updatedProduct);
     onClose();
     getProducts();
   };
