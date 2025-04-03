@@ -9,7 +9,7 @@ import * as htmlToImage from "html-to-image";
 import PurchaseProductModal from "@products/modals/PurchaseProductModal";
 import SellProductModal from "@products/modals/SellProductModal";
 
-export default function ProductButton({ product }) {
+export default function ProductButton({ product, getProducts }) {
   const [showQrModal, setShowQrModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [showSellModal, setShowSellModal] = useState(false);
@@ -39,7 +39,7 @@ export default function ProductButton({ product }) {
   };
 
   return (
-    <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full">
+    <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full h-fit">
       {/* <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">
           <img
             src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
@@ -107,6 +107,7 @@ export default function ProductButton({ product }) {
           <PurchaseProductModal
             product={product}
             onClose={() => setShowPurchaseModal(false)}
+            getProducts={getProducts}
           />
         </Dialog>
         <Button
@@ -128,6 +129,7 @@ export default function ProductButton({ product }) {
           <SellProductModal
             product={product}
             onClose={() => setShowSellModal(false)}
+            getProducts={getProducts}
           />
         </Dialog>
         <Button

@@ -132,7 +132,15 @@ const ProductsPage = () => {
         <main className="w-full bg-slate-300 h-svh-7rem overflow-y-scroll grid grid-cols-1 pro-max:grid-cols-2 sm:grid-cols-3 p-2 gap-2 sm:gap-4">
           {loading && <p>{"Yükleniyor..."}</p>}
           {products.map((product) => (
-            <ProductButton key={product.id} product={product} />
+            <ProductButton
+              key={product.id}
+              product={product}
+              getProducts={() => {
+                setLoading(true);
+                setProducts([]);
+                getProducts();
+              }}
+            />
           ))}
         </main>
       </div>

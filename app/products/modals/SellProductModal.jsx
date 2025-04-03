@@ -3,7 +3,7 @@ import { sellProductSSR } from "../actions";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 
-const SellProductModal = ({ product, onClose }) => {
+const SellProductModal = ({ product, onClose, getProducts }) => {
   const [count, setCount] = useState(1);
   const [sellValue, setSellValue] = useState(product?.purchase_price ?? 0);
 
@@ -16,6 +16,7 @@ const SellProductModal = ({ product, onClose }) => {
       sell_count: count,
     });
     onClose();
+    getProducts();
   };
 
   return (

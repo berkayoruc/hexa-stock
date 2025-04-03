@@ -7,7 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { purchaseProductSSR } from "../actions";
 
-const PurchaseProductModal = ({ product, onClose }) => {
+const PurchaseProductModal = ({ product, onClose, getProducts }) => {
   const [count, setCount] = useState(1);
   const [purchasePrice, setPurchasePrice] = useState(
     product?.purchase_price ?? 0
@@ -21,6 +21,7 @@ const PurchaseProductModal = ({ product, onClose }) => {
       purchase_price: purchasePrice,
     });
     onClose();
+    getProducts();
   };
 
   return (
