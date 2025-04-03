@@ -21,6 +21,7 @@ export async function getProductsSSR() {
     id,
     name,
     purchase_price,
+    purchase_dollar_price,
     count,
     category (
       id,

@@ -58,7 +58,11 @@ export default function ProductButton({ product, getProducts }) {
           <div className="flex justify-between items-center gap-1">
             <p className="text-sm">Alış:</p>
             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-              {product?.purchase_price}₺
+              {`${product?.purchase_price}₺${
+                product?.purchase_dollar_price
+                  ? ` / $${(product?.purchase_price/product?.purchase_dollar_price).toFixed(2)}`
+                  : ""
+              }`}
             </p>
           </div>
           <div className="flex justify-between items-center gap-1">
@@ -68,7 +72,9 @@ export default function ProductButton({ product, getProducts }) {
             </p>
           </div>
           {product?.updated_at && (
-            <span className="text-sm">{new Date(product?.updated_at).toLocaleString()}</span>
+            <span className="text-sm">
+              {new Date(product?.updated_at).toLocaleString()}
+            </span>
           )}
         </div>
       </div>
